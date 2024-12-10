@@ -1,0 +1,16 @@
+  backup-service:
+    container_name: backup-service
+    image: alpine:latest
+    restart: always
+    volumes:
+      - ./src:/backup
+    environment:
+      - AWS_S3_ENDPOINT='https://s3.eu-west-1.wasabisys.com'
+      - AWS_S3_Bucket='myBucket'
+      - AWS_ACCESS_KEY_ID=******************
+      - AWS_SECRET_ACCESS_KEY=****************
+      # LOGGER_URL='http://log-daemon-app:8888/log'
+    command: tail -f /dev/null
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile

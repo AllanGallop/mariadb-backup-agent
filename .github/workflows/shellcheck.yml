@@ -1,0 +1,26 @@
+name: Shell Script Analysis
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Install ShellCheck
+      - name: Install ShellCheck
+        run: sudo apt-get install -y shellcheck
+
+      # Step 3: Run ShellCheck on all *.sh files
+      - name: Run ShellCheck
+        run: find . -type f -name "*.sh" -exec shellcheck {} \;
